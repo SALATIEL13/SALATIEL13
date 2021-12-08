@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include <stdlib.h> 
+ 	struct noDaLista
+{
+
+int num;
+
+noDaLista *prox;
+};
+
+typedef struct noDaLista Lista;
+Lista *primeiro;
+Lista *proximo;
+int resp;
+
+  void coletadados(){
+   
+    primeiro = (Lista*) malloc (sizeof(Lista));
+    if(primeiro==NULL){
+    	exit(1);
+	}
+	proximo=primeiro;
+	while(1){
+	
+    printf("\nDigite um numero: ");
+    scanf("%d", &proximo->num);
+    printf("\nOUTRO NUMERO?: 1-sim 2-nao ->");
+    scanf("%d",&resp);
+    if(resp==1){
+    	proximo->prox=(Lista*)malloc(sizeof(Lista));
+    	proximo=proximo->prox;
+	}
+	else
+	break;
+}
+}
+void imprimir(){
+	proximo->prox=NULL;
+proximo=primeiro;
+while (proximo!=NULL){	
+	printf("%d\n",proximo->num);
+	printf("\n");
+proximo=proximo->prox;
+}
+	
+}
+void Remover(){
+	Lista *aux,*remove = (Lista*) malloc(sizeof(Lista));	
+	aux = primeiro;
+	remove = NULL;
+	
+	if(primeiro != NULL && primeiro->num <0){
+		remove = primeiro;
+		primeiro = remove->prox;
+	} else{
+		while(aux != NULL && aux->prox != NULL && aux->prox->num <0){
+		   aux = aux->prox;
+		}
+		
+		if(aux != NULL && aux->prox != NULL){
+			remove = aux->prox;
+			aux->prox = remove->prox;
+		}
+	}
+	if(remove != NULL){
+		free(remove);
+    }
+}
+
+int main() {
+coletadados();
+imprimir();
+Remover();
+imprimir();
+	return 0;
+}
